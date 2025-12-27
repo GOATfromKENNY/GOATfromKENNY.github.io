@@ -1,88 +1,153 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的文档中心 | GitHub静态网站</title>
-    <!-- 内置CSS样式，无需额外CSS文件，新手更易使用 -->
+    <!-- Website title: replace with your company name -->
+    <title>XX Doors & Windows - Product Document Center</title>
     <style>
-        /* 全局样式重置，消除默认边距和样式 */
+        /* Global style reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", Arial, sans-serif;
+            font-family: "Arial", "Helvetica Neue", Helvetica, sans-serif;
         }
 
-        /* 页面背景和整体布局 */
+        /* Basic page style */
         body {
-            background-color: #f5f7fa;
+            background-color: #f8f9fa;
             color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto; /* 页面居中 */
+            line-height: 1.7;
         }
 
-        /* 头部标题样式 */
+        /* Header navigation (with company logo) */
         header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 40px;
-            border-bottom: 2px solid #4299e1;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        header h1 {
-            color: #2d3748;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
         }
 
-        header p {
-            color: #718096;
+        /* Company logo style */
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .company-info h1 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .company-info p {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        /* Main content area */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Category tab style */
+        .category-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e6e6e6;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            padding: 10px 25px;
+            background-color: #ffffff;
+            border: 1px solid #e6e6e6;
+            border-radius: 6px;
             font-size: 1.1rem;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        /* 文档列表容器 */
-        .document-container {
+        .tab-btn.active {
+            background-color: #2980b9;
+            color: white;
+            border-color: #2980b9;
+        }
+
+        .tab-btn:hover:not(.active) {
+            border-color: #2980b9;
+            color: #2980b9;
+        }
+
+        /* Product document card container */
+        .document-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
         }
 
-        /* 单个文档卡片样式 */
+        /* Hide unselected categories */
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: grid;
+        }
+
+        /* Document card style */
         .document-card {
             background: white;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             padding: 25px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid #2980b9;
         }
 
-        /* 鼠标悬浮卡片效果 */
         .document-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
-        .document-card h2 {
-            color: #4299e1;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+        .document-card h3 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #f1f1f1;
         }
 
-        .document-card p {
-            color: #4a5568;
-            margin-bottom: 20px;
+        .document-card .desc {
+            color: #666;
             font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        /* 按钮样式 */
+        /* Button group style */
         .btn-group {
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
         .btn {
@@ -91,148 +156,261 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            cursor: pointer;
-            border: none;
+            text-align: center;
+            flex: 1;
             transition: background-color 0.2s ease;
         }
 
         .btn-preview {
-            background-color: #4299e1;
+            background-color: #2980b9;
             color: white;
         }
 
         .btn-preview:hover {
-            background-color: #3182ce;
+            background-color: #1f618d;
         }
 
         .btn-download {
-            background-color: #38b2ac;
+            background-color: #27ae60;
             color: white;
         }
 
         .btn-download:hover {
-            background-color: #319795;
+            background-color: #219653;
         }
 
-        /* PDF预览区域样式 */
-        .pdf-preview-section {
+        /* PDF preview area */
+        .pdf-preview {
+            max-width: 1200px;
+            margin: 50px auto 30px;
             background: white;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 25px;
-            margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            display: none;
         }
 
-        .pdf-preview-section h2 {
-            color: #2d3748;
+        .pdf-preview.active {
+            display: block;
+        }
+
+        .pdf-preview h2 {
+            color: #2c3e50;
             margin-bottom: 20px;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
+            border-left: 5px solid #2980b9;
+            padding-left: 15px;
         }
 
         .pdf-frame {
             width: 100%;
-            height: 700px;
+            height: 750px;
             border: none;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        /* 响应式适配（手机端） */
+        /* Footer style */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive adaptation (mobile) */
         @media (max-width: 768px) {
-            body {
-                padding: 15px;
+            .header-container {
+                flex-direction: column;
+                text-align: center;
             }
 
-            header h1 {
-                font-size: 1.8rem;
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .company-info h1 {
+                font-size: 1.5rem;
+            }
+
+            .category-tabs {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+
+            .document-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
             }
 
             .pdf-frame {
                 height: 500px;
             }
-
-            .btn-group {
-                flex-direction: column;
-                gap: 10px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- 页面头部 -->
+    <!-- Header (with company logo) -->
     <header>
-        <h1>我的文档中心</h1>
-        <p>可在线预览和下载的PDF文档合集</p>
+        <div class="header-container">
+            <!-- Company logo: replace with your logo path -->
+            <img src="images/logo.png" alt="XX Doors & Windows Logo" class="logo">
+            <div class="company-info">
+                <!-- Replace with your company name and slogan -->
+                <h1>XX Aluminum Doors & Windows · Wooden Doors</h1>
+                <p>Professional Customization · Quality Assurance · One-Stop Solution</p>
+            </div>
+        </div>
     </header>
 
-    <!-- 文档列表 -->
-    <div class="document-container">
-        <!-- 文档1 -->
-        <div class="document-card">
-            <h2>使用指南</h2>
-            <p>网站功能使用说明，包含详细的操作步骤和常见问题解答</p>
-            <div class="btn-group">
-                <a href="#pdf1" class="btn btn-preview">在线预览</a>
-                <a href="docs/guide.pdf" download class="btn btn-download">立即下载</a>
-            </div>
+    <!-- Main content area -->
+    <main>
+        <!-- Category tabs: Doors/Windows -->
+        <div class="category-tabs">
+            <button class="tab-btn active" data-category="doors">Door Series</button>
+            <button class="tab-btn" data-category="windows">Window Series</button>
         </div>
 
-        <!-- 文档2 -->
-        <div class="document-card">
-            <h2>产品手册</h2>
-            <p>完整的产品介绍手册，包含功能说明、参数规格和使用场景</p>
-            <div class="btn-group">
-                <a href="#pdf2" class="btn btn-preview">在线预览</a>
-                <a href="docs/manual.pdf" download class="btn btn-download">立即下载</a>
+        <!-- Door series documents -->
+        <div class="document-grid category-content active" id="doors-content">
+            <!-- Solid wood door product manual: replace with your PDF filename and description -->
+            <div class="document-card">
+                <h3>Solid Wood Door Product Manual</h3>
+                <p class="desc">Including solid wood door material description, size specifications, color options and installation guidelines</p>
+                <div class="btn-group">
+                    <a href="#pdf-doors-1" class="btn btn-preview">Preview Online</a>
+                    <a href="docs/doors/solid-wood-door-manual.pdf" download class="btn btn-download">Download Document</a>
+                </div>
             </div>
+
+            <!-- Aluminum sliding door specification: replace with your PDF filename and description -->
+            <div class="document-card">
+                <h3>Aluminum Sliding Door Specification</h3>
+                <p class="desc">Aluminum sliding door load-bearing parameters, waterproof design, custom size range and quotation sheet</p>
+                <div class="btn-group">
+                    <a href="#pdf-doors-2" class="btn btn-preview">Preview Online</a>
+                    <a href="docs/doors/aluminum-sliding-door-spec.pdf" download class="btn btn-download">Download Document</a>
+                </div>
+            </div>
+
+            <!-- Copy the above card to add more door documents -->
         </div>
 
-        <!-- 可复制上面的卡片添加更多文档 -->
-        <!-- <div class="document-card">
-            <h2>新文档标题</h2>
-            <p>文档描述信息</p>
-            <div class="btn-group">
-                <a href="#pdf3" class="btn btn-preview">在线预览</a>
-                <a href="docs/new.pdf" download class="btn btn-download">立即下载</a>
+        <!-- Window series documents -->
+        <div class="document-grid category-content" id="windows-content">
+            <!-- Aluminum casement window manual: replace with your PDF filename and description -->
+            <div class="document-card">
+                <h3>Aluminum Casement Window Technical Manual</h3>
+                <p class="desc">Casement window sound insulation, heat insulation performance parameters, glass selection guide and installation specifications</p>
+                <div class="btn-group">
+                    <a href="#pdf-windows-1" class="btn btn-preview">Preview Online</a>
+                    <a href="docs/windows/aluminum-casement-window-manual.pdf" download class="btn btn-download">Download Document</a>
+                </div>
             </div>
-        </div> -->
-    </div>
 
-    <!-- PDF预览区域 -->
-    <div class="pdf-preview-section" id="pdf1">
-        <h2>使用指南 - 在线预览</h2>
-        <iframe src="docs/guide.pdf" class="pdf-frame">
-            抱歉，你的浏览器不支持PDF预览，请点击<a href="docs/guide.pdf" download>这里下载</a>查看。
+            <!-- High-end system window customization plan: replace with your PDF filename and description -->
+            <div class="document-card">
+                <h3>High-End System Window Customization Plan</h3>
+                <p class="desc">System window sealing design, hardware configuration, wind resistance rating and engineering cases</p>
+                <div class="btn-group">
+                    <a href="#pdf-windows-2" class="btn btn-preview">Preview Online</a>
+                    <a href="docs/windows/high-end-system-window-plan.pdf" download class="btn btn-download">Download Document</a>
+                </div>
+            </div>
+
+            <!-- Copy the above card to add more window documents -->
+        </div>
+    </main>
+
+    <!-- PDF preview area -->
+    <div class="pdf-preview" id="pdf-doors-1">
+        <h2>Solid Wood Door Product Manual</h2>
+        <iframe src="docs/doors/solid-wood-door-manual.pdf" class="pdf-frame">
+            Your browser does not support PDF preview, please <a href="docs/doors/solid-wood-door-manual.pdf" download>click to download</a> to view
         </iframe>
     </div>
 
-    <div class="pdf-preview-section" id="pdf2" style="display: none;">
-        <h2>产品手册 - 在线预览</h2>
-        <iframe src="docs/manual.pdf" class="pdf-frame">
-            抱歉，你的浏览器不支持PDF预览，请点击<a href="docs/manual.pdf" download>这里下载</a>查看。
+    <div class="pdf-preview" id="pdf-doors-2">
+        <h2>Aluminum Sliding Door Specification</h2>
+        <iframe src="docs/doors/aluminum-sliding-door-spec.pdf" class="pdf-frame">
+            Your browser does not support PDF preview, please <a href="docs/doors/aluminum-sliding-door-spec.pdf" download>click to download</a> to view
         </iframe>
     </div>
 
-    <!-- 简单的JS实现预览切换（可选） -->
+    <div class="pdf-preview" id="pdf-windows-1">
+        <h2>Aluminum Casement Window Technical Manual</h2>
+        <iframe src="docs/windows/aluminum-casement-window-manual.pdf" class="pdf-frame">
+            Your browser does not support PDF preview, please <a href="docs/windows/aluminum-casement-window-manual.pdf" download>click to download</a> to view
+        </iframe>
+    </div>
+
+    <div class="pdf-preview" id="pdf-windows-2">
+        <h2>High-End System Window Customization Plan</h2>
+        <iframe src="docs/windows/high-end-system-window-plan.pdf" class="pdf-frame">
+            Your browser does not support PDF preview, please <a href="docs/windows/high-end-system-window-plan.pdf" download>click to download</a> to view
+        </iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- Replace with your company contact information -->
+            <p>XX Doors & Windows Co., Ltd. © 2025 All Rights Reserved | Contact Phone: +86 138XXXX8888 | Address: XX Road, XX District, XX City</p>
+        </div>
+    </footer>
+
+    <!-- Interactive logic JS -->
     <script>
-        // 获取所有预览按钮
-        const previewBtns = document.querySelectorAll('.btn-preview');
-        // 获取所有PDF预览区域
-        const pdfSections = document.querySelectorAll('.pdf-preview-section');
+        // 1. Category tab switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const categoryContents = document.querySelectorAll('.category-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove all active states
+                tabBtns.forEach(b => b.classList.remove('active'));
+                categoryContents.forEach(c => c.classList.remove('active'));
+                
+                // Add current active state
+                btn.classList.add('active');
+                const targetCategory = btn.getAttribute('data-category');
+                document.getElementById(`${targetCategory}-content`).classList.add('active');
+                
+                // Hide all PDF previews
+                document.querySelectorAll('.pdf-preview').forEach(p => p.classList.remove('active'));
+            });
+        });
 
-        // 给每个预览按钮添加点击事件
+        // 2. PDF preview switching
+        const previewBtns = document.querySelectorAll('.btn-preview');
+        const pdfPreviews = document.querySelectorAll('.pdf-preview');
+        
         previewBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                // 隐藏所有预览区域
-                pdfSections.forEach(section => {
-                    section.style.display = 'none';
-                });
-                // 显示对应的预览区域
+                // Hide all previews
+                pdfPreviews.forEach(p => p.classList.remove('active'));
+                // Show target preview
                 const targetId = btn.getAttribute('href').slice(1);
-                document.getElementById(targetId).style.display = 'block';
-                // 滚动到预览区域
-                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+                const targetPreview = document.getElementById(targetId);
+                targetPreview.classList.add('active');
+                // Scroll to preview area
+                targetPreview.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
