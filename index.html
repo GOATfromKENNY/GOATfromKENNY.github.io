@@ -1,12 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的文档中心 | GitHub静态网站</title>
+    <!-- 内置CSS样式，无需额外CSS文件，新手更易使用 -->
+    <style>
+        /* 全局样式重置，消除默认边距和样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+
+        /* 页面背景和整体布局 */
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto; /* 页面居中 */
+        }
+
+        /* 头部标题样式 */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #4299e1;
+        }
+
+        header h1 {
+            color: #2d3748;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        /* 文档列表容器 */
+        .document-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* 单个文档卡片样式 */
+        .document-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        /* 鼠标悬浮卡片效果 */
+        .document-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .document-card h2 {
+            color: #4299e1;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .document-card p {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        /* 按钮样式 */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-preview {
+            background-color: #4299e1;
+            color: white;
+        }
+
+        .btn-preview:hover {
+            background-color: #3182ce;
+        }
+
+        .btn-download {
+            background-color: #38b2ac;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background-color: #319795;
+        }
+
+        /* PDF预览区域样式 */
+        .pdf-preview-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        .pdf-preview-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .pdf-frame {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        /* 响应式适配（手机端） */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .pdf-frame {
+                height: 500px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>welcome!how are you</h1>
-<img src="/images/logo.png" width="258" height="39" />
+    <!-- 页面头部 -->
+    <header>
+        <h1>我的文档中心</h1>
+        <p>可在线预览和下载的PDF文档合集</p>
+    </header>
 
+    <!-- 文档列表 -->
+    <div class="document-container">
+        <!-- 文档1 -->
+        <div class="document-card">
+            <h2>使用指南</h2>
+            <p>网站功能使用说明，包含详细的操作步骤和常见问题解答</p>
+            <div class="btn-group">
+                <a href="#pdf1" class="btn btn-preview">在线预览</a>
+                <a href="docs/guide.pdf" download class="btn btn-download">立即下载</a>
+            </div>
+        </div>
+
+        <!-- 文档2 -->
+        <div class="document-card">
+            <h2>产品手册</h2>
+            <p>完整的产品介绍手册，包含功能说明、参数规格和使用场景</p>
+            <div class="btn-group">
+                <a href="#pdf2" class="btn btn-preview">在线预览</a>
+                <a href="docs/manual.pdf" download class="btn btn-download">立即下载</a>
+            </div>
+        </div>
+
+        <!-- 可复制上面的卡片添加更多文档 -->
+        <!-- <div class="document-card">
+            <h2>新文档标题</h2>
+            <p>文档描述信息</p>
+            <div class="btn-group">
+                <a href="#pdf3" class="btn btn-preview">在线预览</a>
+                <a href="docs/new.pdf" download class="btn btn-download">立即下载</a>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- PDF预览区域 -->
+    <div class="pdf-preview-section" id="pdf1">
+        <h2>使用指南 - 在线预览</h2>
+        <iframe src="docs/guide.pdf" class="pdf-frame">
+            抱歉，你的浏览器不支持PDF预览，请点击<a href="docs/guide.pdf" download>这里下载</a>查看。
+        </iframe>
+    </div>
+
+    <div class="pdf-preview-section" id="pdf2" style="display: none;">
+        <h2>产品手册 - 在线预览</h2>
+        <iframe src="docs/manual.pdf" class="pdf-frame">
+            抱歉，你的浏览器不支持PDF预览，请点击<a href="docs/manual.pdf" download>这里下载</a>查看。
+        </iframe>
+    </div>
+
+    <!-- 简单的JS实现预览切换（可选） -->
+    <script>
+        // 获取所有预览按钮
+        const previewBtns = document.querySelectorAll('.btn-preview');
+        // 获取所有PDF预览区域
+        const pdfSections = document.querySelectorAll('.pdf-preview-section');
+
+        // 给每个预览按钮添加点击事件
+        previewBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // 隐藏所有预览区域
+                pdfSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                // 显示对应的预览区域
+                const targetId = btn.getAttribute('href').slice(1);
+                document.getElementById(targetId).style.display = 'block';
+                // 滚动到预览区域
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html>
